@@ -1,11 +1,26 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ContextCreate } from "./AuthProvider";
+import toast from "react-hot-toast";
 
 const LogIn = () => {
+    const contextInfo = useContext(ContextCreate)
+    const {SignInUser} = contextInfo
     const formHandle = e => {
         e.preventDefault()
         const email = e.target.email.value
         const password = e.target.password.value
+        if(password.length < 8){
+            return toast.error('password minimum 8 characters')
+        }
         console.log(email,password);
+        SignInUser(email,password)
+        .then(()=>{
+            toast.success('Success Log-in !!')
+        })
+        .catch(error =>{
+            toast.error(error.message)
+        })
     }
     return (
         <div className="hero min-h-screen bg-base-200">

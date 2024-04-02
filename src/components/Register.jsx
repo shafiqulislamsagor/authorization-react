@@ -1,12 +1,29 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ContextCreate } from "./AuthProvider";
+import toast from "react-hot-toast";
 
 const Register = () => {
+    const contextInfo = useContext(ContextCreate)
+    const {CreateUser } = contextInfo
     const formHandle = e =>{
         e.preventDefault()
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
+        if(password.length < 8){
+            toast.error('password minimum 8 characters')
+            return 
+        }
         console.log(name,email,password);
+        CreateUser(email,password)
+        .then(() =>{
+            // console.log(result.user);
+            toast.success('Success user create accounts !!!')
+        })
+        .catch(error =>{
+            toast.error(error.message)
+        })
     }
     return (
         <div className="hero min-h-screen bg-base-200">
