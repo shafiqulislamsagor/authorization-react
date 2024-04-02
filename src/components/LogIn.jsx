@@ -5,13 +5,17 @@ import toast from "react-hot-toast";
 
 const LogIn = () => {
     const contextInfo = useContext(ContextCreate)
-    const {SignInUser} = contextInfo
+    const {SignInUser,user} = contextInfo
     const formHandle = e => {
         e.preventDefault()
         const email = e.target.email.value
         const password = e.target.password.value
         if(password.length < 8){
             return toast.error('password minimum 8 characters')
+        }
+        else if(user){
+            toast.error('please logout your account then login')
+            return
         }
         console.log(email,password);
         SignInUser(email,password)
