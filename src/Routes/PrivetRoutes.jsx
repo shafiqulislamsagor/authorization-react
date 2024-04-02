@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const PrivetRoutes = ({ children }) => {
     const { user ,Loading} = useContext(ContextCreate)
-    console.log(user);
+    // console.log(user);
     if(Loading){
         return <div className="flex justify-center"><span className="loading loading-bars loading-lg "></span></div>
     }
